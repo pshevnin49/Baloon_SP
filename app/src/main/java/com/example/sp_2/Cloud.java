@@ -39,7 +39,16 @@ public class Cloud {
         speed+=1;
         size = 350;
 
-        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cloud);
+        Bitmap cBitmap = null;
+        boolean cloudType = rand.nextBoolean();
+
+        if(cloudType){
+            cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cloud0);
+        }else{
+            cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cloud1);
+        }
+
+
         this.bmp = Bitmap.createScaledBitmap(
                 cBitmap, (int)(size), (int)(size), false);
 

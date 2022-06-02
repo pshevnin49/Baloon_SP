@@ -18,18 +18,42 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class StartActivity extends Activity implements OnClickListener {
 
     public static Display display = null;
+    MenuView menuView = null;
 
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        createBackground();
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        menuView.setRunning(false);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        createBackground();
+
+    }
+
+    public void createBackground(){
         display = getWindowManager().getDefaultDisplay();
-        //setContentView(new MenuView(this));
 
         setContentView(R.layout.menu);
+
+        menuView = new MenuView(this);
+        LinearLayout menuLayout = (LinearLayout) findViewById(R.id.menuLayout);
+        menuLayout.addView(menuView);
 
         TextView startView = (TextView)findViewById(R.id.start);
         startView.setOnClickListener(this);
@@ -39,12 +63,11 @@ public class StartActivity extends Activity implements OnClickListener {
 
         TextView quitView = (TextView)findViewById(R.id.quit);
         quitView.setOnClickListener(this);
-
     }
+
 
     @Override
     public void onClick(View v) {
-
         switch(v.getId()){
             case R.id.start: {
                 Intent intent = new Intent();
@@ -59,7 +82,5 @@ public class StartActivity extends Activity implements OnClickListener {
             default:
                 break;
         }
-
-
     }
 }

@@ -124,6 +124,8 @@ public class MenuView extends SurfaceView implements Runnable {
 
     }
 
+
+
     private void createClouds(){
         clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 60, 50, true));
         clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 200, 200, false));
@@ -143,7 +145,7 @@ public class MenuView extends SurfaceView implements Runnable {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.parseColor("#9ba7cf"));
 
         for(Cloud cloud: clouds){
             cloud.onDraw(canvas);
