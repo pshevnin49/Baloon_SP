@@ -11,8 +11,6 @@ public class GameView extends SurfaceView implements Runnable {
     static final long FPS = 50;
     private boolean running = false;
 
-
-
     private Thread gameThread = null;
     private Baloon baloon;
 
@@ -62,7 +60,6 @@ public class GameView extends SurfaceView implements Runnable {
             public void surfaceChanged(SurfaceHolder holder, int format,
 
                                        int width, int height) {
-
             }
 
         });

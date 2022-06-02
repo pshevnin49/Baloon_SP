@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/start"
+            style="@style/MenuFont"
+            android:layout_gravity="center"
+            android:text="Start" />
+
+        <TextView
+            android:id="@+id/score"
+            style="@style/MenuFont"
+            android:layout_gravity="center"
+            android:text="Score" />
+
+        <TextView
+            android:id="@+id/quit"
+            style="@style/MenuFont"
+            android:layout_gravity="center"
+            android:text="Quit" />
+    </LinearLayout>
+

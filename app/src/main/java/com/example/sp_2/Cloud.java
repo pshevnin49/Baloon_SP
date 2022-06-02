@@ -5,13 +5,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.SurfaceHolder;
 
+import java.util.Random;
 
-public class Baloon {
+public class Cloud {
 
     private int x = 0;
     private int y = 0;
@@ -27,29 +24,35 @@ public class Baloon {
     private Resources resources = null;
     private Bitmap bmp;
 
-
-    public Baloon(Resources resources, Context context, int windowWidth, int windowHeight){
+    public Cloud (Resources resources, Context context, int windowWidth, int windowHeight, int x, int y){
 
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
 
-        speed = 5;
-        size = 250;
+        Random rand = new Random();
 
-        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon3);
+        speed = rand.nextInt(3);
+        size = 150;
+
+        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cloud);
         this.bmp = Bitmap.createScaledBitmap(
                 cBitmap, (int)(size), (int)(size), false);
 
         this.width = bmp.getWidth();
         this.height = bmp.getHeight();
 
-        x = (windowWidth/2) - bmp.getWidth()/2;
-        y = windowHeight - (int)(height * 1.5);
+        this.x = x;
+        this.y = y;
 
     }
 
+    public void onDraw(Canvas canvas){
+        update();
+        canvas.drawBitmap(bmp, x, y, null );
+    }
+
     public void update(){
-        if(MainActivity.leftPressed && x >= 0){
+        if(x >= -width*2){
             x-=speed;
         }
         else if(MainActivity.rightPressed && x <= windowWidth - width){
@@ -57,27 +60,6 @@ public class Baloon {
         }
     }
 
-    public void onDraw(Canvas canvas){
 
-        update();
-        canvas.drawBitmap(bmp, x, y, null );
-
-    }
-
-    public int getWidth(){
-        return width;
-    }
-
-    public int getHeight(){
-        return height;
-    }
-
-    public int getX(){
-        return x;
-    }
-
-    public int getY(){
-        return y;
-    }
 
 }
