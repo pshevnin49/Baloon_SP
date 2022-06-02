@@ -81,40 +81,30 @@ public class GameView extends SurfaceView implements Runnable {
         while (running) {
             System.out.println("runing 2");
             Canvas c = null;
-
             startTime = System.currentTimeMillis();
 
             try {
-
                 c = this.getHolder().lockCanvas();
-
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
                         this.onDraw(c);
                     }
-
-
                 }
 
             } finally {
                 if (c != null) {
-
-                    this.getHolder().unlockCanvasAndPost(c);
-
+                     this.getHolder().unlockCanvasAndPost(c);
                 }
             }
+
             sleepTime = ticksPS - (System.currentTimeMillis() - startTime);
+
             try {
-
                 if (sleepTime > 0)
-
                     gameThread.sleep(sleepTime);
-
                 else
-
                     gameThread.sleep(10);
-
             } catch (Exception e) {
 
             }
