@@ -14,6 +14,8 @@ public class Cloud {
     private int y = 0;
     private double speed;
 
+    private boolean direction;
+
     protected float size;
     private int width;
     private int height;
@@ -24,15 +26,18 @@ public class Cloud {
     private Resources resources = null;
     private Bitmap bmp;
 
-    public Cloud (Resources resources, Context context, int windowWidth, int windowHeight, int x, int y){
+    public Cloud (Resources resources, Context context, int windowWidth, int windowHeight, int x, int y, boolean direction){
 
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
 
         Random rand = new Random();
 
-        speed = rand.nextInt(3);
-        size = 150;
+        this.direction = direction;
+
+        speed = rand.nextInt(2);
+        speed+=1;
+        size = 350;
 
         Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cloud);
         this.bmp = Bitmap.createScaledBitmap(
@@ -52,11 +57,19 @@ public class Cloud {
     }
 
     public void update(){
-        if(x >= -width*2){
+
+        if(direction){
+            x+=speed;
+        }
+        else {
             x-=speed;
         }
-        else if(MainActivity.rightPressed && x <= windowWidth - width){
-            x+=speed;
+
+        if(x <= -width){
+            direction = true;
+        }
+        else if(x >= windowWidth){
+            direction = false;
         }
     }
 

@@ -6,24 +6,29 @@ import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class GameView extends SurfaceView implements Runnable {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MenuView extends SurfaceView implements Runnable {
 
     static final long FPS = 50;
     private boolean running = false;
 
-    private Thread gameThread = null;
-    private Baloon baloon;
+    private Thread menuThread = null;
+    private Context context;
 
 
-    int widthWindow = MainActivity.display.getWidth();
-    int heightWindow = MainActivity.display.getHeight();
+    List<Cloud> clouds = new ArrayList<>();
+
+    int widthWindow = StartActivity.display.getWidth();
+    int heightWindow = StartActivity.display.getHeight();
 
 
-    public GameView(Context context) {
+    public MenuView(Context context) {
         super(context);
 
-        gameThread = new Thread(this);
-
+        menuThread = new Thread(this);
+        this.context = context;
 
         getHolder().addCallback(new SurfaceHolder.Callback() {
 
@@ -37,7 +42,7 @@ public class GameView extends SurfaceView implements Runnable {
 
                     try {
 
-                        gameThread.join();
+                        menuThread.join();
 
                         retry = false;
 
@@ -50,11 +55,10 @@ public class GameView extends SurfaceView implements Runnable {
 
             public void surfaceCreated(SurfaceHolder holder) {
 
+                createClouds();
                 setRunning(true);
 
-                baloon = new Baloon(getResources(), context, widthWindow, heightWindow);
-
-                gameThread.start();
+                menuThread.start();
 
             }
 
@@ -77,9 +81,7 @@ public class GameView extends SurfaceView implements Runnable {
         System.out.println("runing");
 
         long ticksPS = 1000 / FPS;
-
         long startTime;
-
         long sleepTime;
 
         while (running) {
@@ -91,22 +93,17 @@ public class GameView extends SurfaceView implements Runnable {
             try {
 
                 c = this.getHolder().lockCanvas();
-
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
                         this.onDraw(c);
                     }
-
-
                 }
 
             } finally {
 
                 if (c != null) {
-
                     this.getHolder().unlockCanvasAndPost(c);
-
                 }
 
             }
@@ -116,13 +113,9 @@ public class GameView extends SurfaceView implements Runnable {
             try {
 
                 if (sleepTime > 0)
-
-                    gameThread.sleep(sleepTime);
-
+                    menuThread.sleep(sleepTime);
                 else
-
-                    gameThread.sleep(10);
-
+                    menuThread.sleep(10);
             } catch (Exception e) {
 
             }
@@ -131,11 +124,31 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    private void createClouds(){
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 60, 50, true));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 200, 200, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 400, 300, true));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 500, 400, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 100, 500, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 800, 700, true));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 500, 800, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 60, 900, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 800, 1000, true));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 0, 1200, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 600, 1300, true));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 0, 1500, false));
+        clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 600, 1800, true));
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
 
         canvas.drawColor(Color.WHITE);
-        baloon.onDraw(canvas);
+
+        for(Cloud cloud: clouds){
+            cloud.onDraw(canvas);
+        }
+
 
     }
 }
