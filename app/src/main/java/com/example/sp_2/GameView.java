@@ -23,8 +23,6 @@ public class GameView extends SurfaceView implements Runnable {
         super(context);
 
         gameThread = new Thread(this);
-
-
         getHolder().addCallback(new SurfaceHolder.Callback() {
 
             public void surfaceDestroyed(SurfaceHolder holder) {
@@ -38,10 +36,10 @@ public class GameView extends SurfaceView implements Runnable {
                     try {
 
                         gameThread.join();
-
                         retry = false;
 
                     } catch (InterruptedException e) {
+
                     }
 
                 }
@@ -77,9 +75,7 @@ public class GameView extends SurfaceView implements Runnable {
         System.out.println("runing");
 
         long ticksPS = 1000 / FPS;
-
         long startTime;
-
         long sleepTime;
 
         while (running) {
@@ -102,17 +98,13 @@ public class GameView extends SurfaceView implements Runnable {
                 }
 
             } finally {
-
                 if (c != null) {
 
                     this.getHolder().unlockCanvasAndPost(c);
 
                 }
-
             }
-
             sleepTime = ticksPS - (System.currentTimeMillis() - startTime);
-
             try {
 
                 if (sleepTime > 0)
@@ -126,16 +118,13 @@ public class GameView extends SurfaceView implements Runnable {
             } catch (Exception e) {
 
             }
-
         }
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.parseColor("#9ba7cf"));
         baloon.onDraw(canvas);
-
     }
 }

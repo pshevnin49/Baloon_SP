@@ -37,7 +37,7 @@ public class Cloud {
 
         speed = rand.nextInt(2);
         speed+=1;
-        size = 350;
+        size = 300;
 
         Bitmap cBitmap = null;
         boolean cloudType = rand.nextBoolean();
@@ -50,7 +50,7 @@ public class Cloud {
 
 
         this.bmp = Bitmap.createScaledBitmap(
-                cBitmap, (int)(size), (int)(size), false);
+                cBitmap, (int)(size*1.3), (int)(size), false);
 
         this.width = bmp.getWidth();
         this.height = bmp.getHeight();

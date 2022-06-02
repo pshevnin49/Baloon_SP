@@ -47,8 +47,8 @@ public class StartActivity extends Activity implements OnClickListener {
     }
 
     public void createBackground(){
-        display = getWindowManager().getDefaultDisplay();
 
+        display = getWindowManager().getDefaultDisplay();
         setContentView(R.layout.menu);
 
         menuView = new MenuView(this);

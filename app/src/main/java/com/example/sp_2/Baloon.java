@@ -34,11 +34,11 @@ public class Baloon {
         this.windowHeight = windowHeight;
 
         speed = 5;
-        size = 250;
+        size = 200;
 
-        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon3);
+        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon_white);
         this.bmp = Bitmap.createScaledBitmap(
-                cBitmap, (int)(size), (int)(size), false);
+                cBitmap, (int)(size), (int)(size*1.59), false);
 
         this.width = bmp.getWidth();
         this.height = bmp.getHeight();
