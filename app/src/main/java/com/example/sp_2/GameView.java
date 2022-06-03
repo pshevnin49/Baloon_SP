@@ -13,7 +13,7 @@ import java.util.Queue;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    static final long FPS = 50;
+    static final long FPS = 60;
     private boolean running = false;
     private final int PLATFORM_INTERVAL = 90;
     private int platform_time;
@@ -55,13 +55,10 @@ public class GameView extends SurfaceView implements Runnable {
                 }
 
             }
-
             public void surfaceCreated(SurfaceHolder holder) {
-
-                setRunning(true);
                 baloon = new Baloon(getResources(), context, widthWindow, heightWindow);
-                gameThread.start();
-
+                setRunning(true);
+                //gameThread.start();
             }
 
             public void surfaceChanged(SurfaceHolder holder, int format,
@@ -75,6 +72,18 @@ public class GameView extends SurfaceView implements Runnable {
 
     public void setRunning(boolean running) {
         this.running = running;
+
+        if(running){
+            gameThread = new Thread(this);
+            gameThread.start();
+        }
+    }
+
+
+
+    public void startFromPause(){
+        this.running = true;
+        gameThread.start();
     }
 
     @Override
@@ -95,6 +104,7 @@ public class GameView extends SurfaceView implements Runnable {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
                         this.onDraw(c);
+                        this.isCollision();
                         this.newPlatformGeneration();
                     }
                 }
@@ -140,5 +150,14 @@ public class GameView extends SurfaceView implements Runnable {
             platform.onDraw(canvas);
         }
         baloon.onDraw(canvas);
+    }
+
+    private boolean isCollision(){
+        for(Platform platform: platforms){
+            if(platform.isCollision(baloon.getX(), baloon.getY(), baloon.getWidth(), baloon.getHeight())){
+                return true;
+            }
+        }
+        return false;
     }
 }

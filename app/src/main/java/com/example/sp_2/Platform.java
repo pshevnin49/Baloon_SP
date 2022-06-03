@@ -36,7 +36,7 @@ public class Platform {
 
         x = rand.nextInt(windowWidth);
         //Aby platforma mohla o pul byt mimo displaje
-        x = (int) (x-sizeW);
+        x = (int) (x-sizeW/2);
         System.out.println(sizeW + " SIZE W");
         System.out.println(windowWidth + " Window w");
         System.out.println(x);

@@ -12,7 +12,6 @@ import android.view.SurfaceHolder;
 
 
 public class Baloon {
-
     private int x = 0;
     private int y = 0;
     private double speed;
@@ -34,7 +33,7 @@ public class Baloon {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
 
-        speed = 5;
+        speed = 7;
         size = 200;
 
         Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon);
