@@ -61,7 +61,7 @@ public class Cloud {
     }
 
     public void onDraw(Canvas canvas){
-        update();
+        //update();
         canvas.drawBitmap(bmp, x, y, null );
     }
 

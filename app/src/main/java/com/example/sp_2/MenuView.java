@@ -11,9 +11,13 @@ import java.util.List;
 
 public class MenuView extends SurfaceView implements Runnable {
 
-    static final long FPS = 50;
-    private boolean running = false;
+    static final int FPS = 50;
 
+    private final static int MAX_FRAME_SKIPS = 5;
+    private final static int FRAME_PERIOD = 1000/FPS;
+
+    private boolean running = false;
+    private Canvas canvas;
     private Thread menuThread = null;
     private Context context;
 
@@ -61,7 +65,6 @@ public class MenuView extends SurfaceView implements Runnable {
                 menuThread.start();
 
             }
-
             public void surfaceChanged(SurfaceHolder holder, int format,
 
                                        int width, int height) {
@@ -78,54 +81,56 @@ public class MenuView extends SurfaceView implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("runing");
-
-        long ticksPS = 1000 / FPS;
         long startTime;
+        long timeDiff;
         long sleepTime;
+        int skippedFrames;
+
+        sleepTime=0;
 
         while (running) {
-            System.out.println("runing 2");
-            Canvas c = null;
 
-            startTime = System.currentTimeMillis();
+            canvas = null;
 
             try {
 
-                c = this.getHolder().lockCanvas();
+                canvas = this.getHolder().lockCanvas();
                 synchronized (this.getHolder()) {
-                    // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
-                    if (c != null) {
-                        this.onDraw(c);
+                    startTime = System.currentTimeMillis();
+                    skippedFrames = 0;
+
+                    if (canvas != null) {
+                        this.update();
+                        this.onDraw(canvas);
+                    }
+                    timeDiff = System.currentTimeMillis() - startTime;
+                    sleepTime = (int) (FRAME_PERIOD - timeDiff);
+
+                    if (sleepTime > 0){
+                        try {
+                            menuThread.sleep(sleepTime);
+                        } catch (Exception e) {
+
+                        }
+                    }
+
+                    while(sleepTime < 0 && skippedFrames < MAX_FRAME_SKIPS){
+                        this.update();
+                        sleepTime += FRAME_PERIOD;
+                        skippedFrames++;
                     }
                 }
 
             } finally {
 
-                if (c != null) {
-                    this.getHolder().unlockCanvasAndPost(c);
+                if (canvas != null) {
+                    this.getHolder().unlockCanvasAndPost(canvas);
                 }
 
             }
-
-            sleepTime = ticksPS - (System.currentTimeMillis() - startTime);
-
-            try {
-
-                if (sleepTime > 0)
-                    menuThread.sleep(sleepTime);
-                else
-                    menuThread.sleep(10);
-            } catch (Exception e) {
-
-            }
-
         }
 
     }
-
-
-
     private void createClouds(){
         clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 60, 50, true));
         clouds.add(new Cloud(getResources(), context, widthWindow, heightWindow, 200, 200, false));
@@ -144,13 +149,16 @@ public class MenuView extends SurfaceView implements Runnable {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         canvas.drawColor(Color.parseColor("#9ba7cf"));
 
         for(Cloud cloud: clouds){
             cloud.onDraw(canvas);
         }
+    }
 
-
+    public void update(){
+        for(Cloud cloud: clouds){
+            cloud.update();
+        }
     }
 }

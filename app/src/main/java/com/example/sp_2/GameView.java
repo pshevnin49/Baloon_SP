@@ -49,9 +49,7 @@ public class GameView extends SurfaceView implements Runnable {
             public void surfaceCreated(SurfaceHolder holder) {
 
                 setRunning(true);
-
                 baloon = new Baloon(getResources(), context, widthWindow, heightWindow);
-
                 gameThread.start();
 
             }
