@@ -6,13 +6,22 @@ import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class GameView extends SurfaceView implements Runnable {
 
     static final long FPS = 50;
     private boolean running = false;
+    private final int PLATFORM_INTERVAL = 90;
+    private int platform_time;
 
     private Thread gameThread = null;
     private Baloon baloon;
+    private Queue<Platform> platforms = new LinkedList<>();
+    private Context context;
 
 
     int widthWindow = MainActivity.display.getWidth();
@@ -21,6 +30,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     public GameView(Context context) {
         super(context);
+        this.context = context;
 
         gameThread = new Thread(this);
         getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -70,14 +80,12 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("runing");
-
         long ticksPS = 1000 / FPS;
         long startTime;
         long sleepTime;
 
         while (running) {
-            System.out.println("runing 2");
+
             Canvas c = null;
             startTime = System.currentTimeMillis();
 
@@ -87,6 +95,7 @@ public class GameView extends SurfaceView implements Runnable {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
                         this.onDraw(c);
+                        this.newPlatformGeneration();
                     }
                 }
 
@@ -110,9 +119,26 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    public void newPlatformGeneration(){
+        if(platform_time >= PLATFORM_INTERVAL){
+            Platform platform = new Platform(getResources(), context, widthWindow, heightWindow);
+            platforms.offer(platform);
+            platform_time = 0;
+        }else{
+            platform_time++;
+        }
+        if(platforms.size() > 25){
+            platforms.remove();
+        }
+
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.parseColor("#9ba7cf"));
+        for(Platform platform: platforms){
+            platform.onDraw(canvas);
+        }
         baloon.onDraw(canvas);
     }
 }

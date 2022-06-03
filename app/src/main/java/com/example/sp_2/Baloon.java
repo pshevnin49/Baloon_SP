@@ -16,6 +16,7 @@ public class Baloon {
     private int x = 0;
     private int y = 0;
     private double speed;
+    private boolean gameOver = false;
 
     protected float size;
     private int width;
@@ -36,7 +37,7 @@ public class Baloon {
         speed = 5;
         size = 200;
 
-        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon_white);
+        Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.baloon);
         this.bmp = Bitmap.createScaledBitmap(
                 cBitmap, (int)(size), (int)(size*1.59), false);
 
@@ -58,10 +59,15 @@ public class Baloon {
     }
 
     public void onDraw(Canvas canvas){
+        if(!gameOver){
+            update();
+            canvas.drawBitmap(bmp, x, y, null );
+        }
 
-        update();
-        canvas.drawBitmap(bmp, x, y, null );
+    }
 
+    public void setGameOver(boolean gameOver){
+        this.gameOver = gameOver;
     }
 
     public int getWidth(){
