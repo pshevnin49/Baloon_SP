@@ -13,10 +13,11 @@ import java.util.Queue;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    static final long FPS = 60;
+    static final long FPS = 35;
     private boolean running = false;
     private final int PLATFORM_INTERVAL = 90;
     private int platform_time;
+    private long ticksPS = 1000/FPS;
 
     private Thread gameThread = null;
     private Baloon baloon;
@@ -80,16 +81,9 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
 
-
-    public void startFromPause(){
-        this.running = true;
-        gameThread.start();
-    }
-
     @Override
     public void run() {
 
-        long ticksPS = 1000 / FPS;
         long startTime;
         long sleepTime;
 
@@ -134,11 +128,13 @@ public class GameView extends SurfaceView implements Runnable {
             Platform platform = new Platform(getResources(), context, widthWindow, heightWindow);
             platforms.offer(platform);
             platform_time = 0;
+
         }else{
             platform_time++;
         }
-        if(platforms.size() > 25){
+        if(platforms.size() > 3){
             platforms.remove();
+
         }
 
     }

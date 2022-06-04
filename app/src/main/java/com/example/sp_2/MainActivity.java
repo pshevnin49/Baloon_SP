@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     @Override
     public void onPause(){
         super.onPause();
+        leftPressed = false;
+        rightPressed = false;
         gameView.setRunning(false);
     }
 
@@ -50,15 +52,14 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     public boolean onTouch(View view, MotionEvent event) {
         int x = (int)event.getX();
 
-        System.out.println("Action");
+        //System.out.println("Action");
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                System.out.println("Action1");
-                if(x < display.getWidth()/2){
+                //System.out.println("Action1");
+                if(x < display.getWidth()/2 && !rightPressed){
                     leftPressed = true;
-
                 }
-                else if(x > display.getWidth()/2){
+                else if(x > display.getWidth()/2 && !leftPressed){
                     rightPressed = true;
                 }
                 break;

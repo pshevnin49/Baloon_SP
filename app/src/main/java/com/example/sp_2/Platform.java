@@ -37,13 +37,8 @@ public class Platform {
         x = rand.nextInt(windowWidth);
         //Aby platforma mohla o pul byt mimo displaje
         x = (int) (x-sizeW/2);
-        System.out.println(sizeW + " SIZE W");
-        System.out.println(windowWidth + " Window w");
-        System.out.println(x);
-
         y = -80;
         speed = 8;
-
 
         Bitmap cBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.platform_x4);
         this.bmp = Bitmap.createScaledBitmap(
@@ -62,7 +57,7 @@ public class Platform {
     }
 
     public boolean isCollision(int baloonX, int baloonY, int baloonWidth, int baloonHeight){
-        System.out.println(!(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight))));
+        //System.out.println(!(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight))));
         return !(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight)));
     }
 

@@ -75,6 +75,12 @@ public class StartActivity extends Activity implements OnClickListener {
                 startActivity(intent);
             }break;
 
+            case R.id.score: {
+                Intent intent = new Intent();
+                intent.setClass(this, ScoreActivity.class);
+                startActivity(intent);
+            }break;
+
             case R.id.quit: {
                 finish();
             }break;
