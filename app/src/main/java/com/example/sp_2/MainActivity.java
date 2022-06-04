@@ -1,16 +1,12 @@
 package com.example.sp_2;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.pm.ActivityInfo;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
-import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity implements OnTouchListener {
 
@@ -18,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     public static boolean rightPressed = false; // right button is pressed
     public static Display display = null;
     GameView gameView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         display = getWindowManager().getDefaultDisplay();
@@ -52,10 +49,8 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     public boolean onTouch(View view, MotionEvent event) {
         int x = (int)event.getX();
 
-        //System.out.println("Action");
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                //System.out.println("Action1");
                 if(x < display.getWidth()/2 && !rightPressed){
                     leftPressed = true;
                 }
@@ -71,9 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
                     rightPressed = false;
                 }
                 break;
-
         }
-
         return true;
     }
 }

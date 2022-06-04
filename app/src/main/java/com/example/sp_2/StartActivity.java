@@ -1,23 +1,11 @@
 package com.example.sp_2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,10 +15,8 @@ public class StartActivity extends Activity implements OnClickListener {
     MenuView menuView = null;
 
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         createBackground();
-
     }
 
     @Override
@@ -43,7 +29,6 @@ public class StartActivity extends Activity implements OnClickListener {
     public void onResume(){
         super.onResume();
         createBackground();
-
     }
 
     public void createBackground(){

@@ -86,7 +86,7 @@ public class MenuView extends SurfaceView implements Runnable {
         long sleepTime;
         int skippedFrames;
 
-        sleepTime=0;
+        sleepTime = 0;
 
         while (running) {
 

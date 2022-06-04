@@ -58,11 +58,16 @@ public class Baloon {
     }
 
     public void onDraw(Canvas canvas){
+
         if(!gameOver){
             update();
             canvas.drawBitmap(bmp, x, y, null );
         }
 
+    }
+
+    public void speedIncrement(){
+        speed += 0.05;
     }
 
     public void setGameOver(boolean gameOver){

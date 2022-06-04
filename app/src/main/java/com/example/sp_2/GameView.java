@@ -6,18 +6,29 @@ import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class GameView extends SurfaceView implements Runnable {
 
+
+
     static final long FPS = 35;
+
+    private double speed = 6;
+    private int platform_interval = 90;
+
+    private final int SCORE_INTERVAL = 20;
+    private final int SPEED_INTERVAL = 90;
+
     private boolean running = false;
-    private final int PLATFORM_INTERVAL = 90;
-    private int platform_time;
+
+    private int platform_time = 0;
+    private int score_time = 0;
+    private  int speed_time = 0;
+
     private long ticksPS = 1000/FPS;
+    private int score = 0;
 
     private Thread gameThread = null;
     private Baloon baloon;
@@ -97,6 +108,8 @@ public class GameView extends SurfaceView implements Runnable {
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
+                        platform_interval = (int)(540/speed);
+                        this.scoreIncrement();
                         this.onDraw(c);
                         this.isCollision();
                         this.newPlatformGeneration();
@@ -124,7 +137,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     public void newPlatformGeneration(){
-        if(platform_time >= PLATFORM_INTERVAL){
+        if(platform_time >= platform_interval){
+            baloon.speedIncrement();
             Platform platform = new Platform(getResources(), context, widthWindow, heightWindow);
             platforms.offer(platform);
             platform_time = 0;
@@ -132,28 +146,48 @@ public class GameView extends SurfaceView implements Runnable {
         }else{
             platform_time++;
         }
-        if(platforms.size() > 3){
+        if(platforms.size() > 5){
             platforms.remove();
 
         }
+    }
 
+    public void scoreIncrement(){
+        if(score_time >= SCORE_INTERVAL){
+            score++;
+            System.out.println(score + " score");
+            score_time = 0;
+        }
+        else{
+            score_time++;
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.parseColor("#9ba7cf"));
+        speed += 0.01;
         for(Platform platform: platforms){
             platform.onDraw(canvas);
+            platform.setSpeed(speed);
         }
         baloon.onDraw(canvas);
     }
 
     private boolean isCollision(){
         for(Platform platform: platforms){
-            if(platform.isCollision(baloon.getX(), baloon.getY(), baloon.getWidth(), baloon.getHeight())){
+            if(platform.isCollision(baloon.getX() + 10, baloon.getY() - 10, baloon.getWidth() - 10, baloon.getHeight() - 10)){
+                this.gameOver();
                 return true;
             }
         }
         return false;
     }
+
+    private void gameOver(){
+        baloon.setGameOver(true);
+        running = false;
+    }
+
+
 }
