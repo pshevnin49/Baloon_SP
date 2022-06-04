@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements OnTouchListener {
 
@@ -14,15 +16,19 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     public static boolean rightPressed = false; // right button is pressed
     public static Display display = null;
     GameView gameView = null;
+    private static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        instance = this;
         display = getWindowManager().getDefaultDisplay();
+        setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LinearLayout gameLayout = (LinearLayout) findViewById(R.id.gameLayout);
         gameView = new GameView(this);
+        gameLayout.addView(gameView);
         gameView.setOnTouchListener(this);
-        setContentView(gameView);
     }
 
     @Override
@@ -68,5 +74,25 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
                 break;
         }
         return true;
+    }
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
+
+    public void gameOver(){
+        LinearLayout gameOverLayout = (LinearLayout) findViewById(R.id.gameOverLayout);
+
+        TextView gameOverView = new TextView(this);
+        gameOverView.setText("Game over");
+        TextView restartView = new TextView(this);
+        gameOverView.setText("Restart");
+        TextView quitView = new TextView(this);
+        gameOverView.setText("Quit");
+
+        gameOverLayout.addView(gameOverView);
+        gameOverLayout.addView(restartView);
+        gameOverLayout.addView(quitView);
+
     }
 }

@@ -36,6 +36,8 @@ public class GameView extends SurfaceView implements Runnable {
     private Context context;
 
 
+
+
     int widthWindow = MainActivity.display.getWidth();
     int heightWindow = MainActivity.display.getHeight();
 
@@ -176,7 +178,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private boolean isCollision(){
         for(Platform platform: platforms){
-            if(platform.isCollision(baloon.getX() + 10, baloon.getY() - 10, baloon.getWidth() - 10, baloon.getHeight() - 10)){
+            if(platform.isCollision(baloon.getX() + 20, baloon.getY() + 10, baloon.getWidth() - 20, baloon.getHeight() - 20)){
                 this.gameOver();
                 return true;
             }
@@ -185,6 +187,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void gameOver(){
+        MainActivity.getInstance().gameOver();
         baloon.setGameOver(true);
         running = false;
     }
