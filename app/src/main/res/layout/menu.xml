@@ -33,6 +33,12 @@
                 android:text="Score" />
 
             <TextView
+                android:id="@+id/settings"
+                style="@style/MenuFont"
+                android:layout_gravity="center"
+                android:text="Settings" />
+
+            <TextView
                 android:id="@+id/quit"
                 style="@style/MenuFont"
                 android:layout_gravity="center"

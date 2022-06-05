@@ -1,10 +1,13 @@
 package com.example.sp_2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -165,6 +168,15 @@ public class GameView extends SurfaceView implements Runnable {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.parseColor("#9ba7cf"));
         speed += 0.01;
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(80);
+        String scoreString = Integer.toString(score);
+
+        canvas.drawText(scoreString, widthWindow - (scoreString.length()*60), 100, paint);
+
         for(Platform platform: platforms){
             platform.onDraw(canvas);
             platform.setSpeed(speed);

@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements OnTouchListener {
 
-
     public static boolean leftPressed = false; // left button is pressed
     public static boolean rightPressed = false; // right button is pressed
     public static Display display = null;
@@ -78,9 +77,11 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
             case MotionEvent.ACTION_UP:
                 if(x < display.getWidth()/2){
                     leftPressed = false;
+                    rightPressed = false;
                 }
                 else if(x > display.getWidth()/2){
                     rightPressed = false;
+                    leftPressed = false;
                 }
                 break;
         }

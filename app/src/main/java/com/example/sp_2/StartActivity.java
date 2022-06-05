@@ -50,6 +50,9 @@ public class StartActivity extends Activity implements OnClickListener {
 
         TextView quitView = (TextView)findViewById(R.id.quit);
         quitView.setOnClickListener(this);
+
+        TextView settingsView = (TextView)findViewById(R.id.settings);
+        settingsView.setOnClickListener(this);
     }
 
 
@@ -65,6 +68,11 @@ public class StartActivity extends Activity implements OnClickListener {
             case R.id.score: {
                 Intent intent = new Intent();
                 intent.setClass(this, ScoreActivity.class);
+                startActivity(intent);
+            }break;
+            case R.id.settings: {
+                Intent intent = new Intent();
+                intent.setClass(this, SettingsActivity.class);
                 startActivity(intent);
             }break;
 
