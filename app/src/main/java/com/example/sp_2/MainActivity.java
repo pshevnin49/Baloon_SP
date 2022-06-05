@@ -1,6 +1,8 @@
 package com.example.sp_2;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -18,12 +20,13 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     GameView gameView = null;
     private static MainActivity instance;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         instance = this;
         display = getWindowManager().getDefaultDisplay();
         setContentView(R.layout.activity_main);
-        super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         LinearLayout gameLayout = (LinearLayout) findViewById(R.id.gameLayout);
         gameView = new GameView(this);
@@ -80,19 +83,10 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
         return instance;
     }
 
+
     public void gameOver(){
-        LinearLayout gameOverLayout = (LinearLayout) findViewById(R.id.gameOverLayout);
-
-        TextView gameOverView = new TextView(this);
-        gameOverView.setText("Game over");
-        TextView restartView = new TextView(this);
-        gameOverView.setText("Restart");
-        TextView quitView = new TextView(this);
-        gameOverView.setText("Quit");
-
-        gameOverLayout.addView(gameOverView);
-        gameOverLayout.addView(restartView);
-        gameOverLayout.addView(quitView);
-
+        Intent intent = new Intent();
+        intent.setClass(this, GameOverActivity.class);
+        startActivity(intent);
     }
 }
