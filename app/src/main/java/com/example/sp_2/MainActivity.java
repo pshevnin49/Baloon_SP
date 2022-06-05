@@ -2,7 +2,9 @@ package com.example.sp_2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -14,16 +16,23 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements OnTouchListener {
 
+
     public static boolean leftPressed = false; // left button is pressed
     public static boolean rightPressed = false; // right button is pressed
     public static Display display = null;
+    private boolean gameOver = false;
+
+    public static final String APP_PREFERENCES = "gameScore";
+    public static final String APP_PREFERENCES_SCORE = "score";
+    private SharedPreferences scorePreferences;
+
     GameView gameView = null;
     private static MainActivity instance;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        scorePreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         instance = this;
         display = getWindowManager().getDefaultDisplay();
         setContentView(R.layout.activity_main);
@@ -39,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
         super.onPause();
         leftPressed = false;
         rightPressed = false;
-        gameView.setRunning(false);
     }
 
     @Override
@@ -84,9 +92,25 @@ public class MainActivity extends AppCompatActivity implements OnTouchListener {
     }
 
 
-    public void gameOver(){
-        Intent intent = new Intent();
-        intent.setClass(this, GameOverActivity.class);
-        startActivity(intent);
+    public void gameOver(int newScore){
+
+        if(!gameOver){
+            Intent intent = new Intent();
+            System.out.println("Gameover Class");
+
+            int actuallScore = scorePreferences.getInt(APP_PREFERENCES_SCORE, 0);
+
+            if(newScore > actuallScore){
+                SharedPreferences.Editor editor = scorePreferences.edit();
+                editor.putInt(APP_PREFERENCES_SCORE, newScore);
+                editor.apply();
+            }
+
+            intent.setClass(this, GameOverActivity.class);
+            startActivity(intent);
+            gameOver = true;
+            finish();
+        }
+
     }
 }

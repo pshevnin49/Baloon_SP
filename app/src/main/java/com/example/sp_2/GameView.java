@@ -35,9 +35,6 @@ public class GameView extends SurfaceView implements Runnable {
     private Queue<Platform> platforms = new LinkedList<>();
     private Context context;
 
-
-
-
     int widthWindow = MainActivity.display.getWidth();
     int heightWindow = MainActivity.display.getHeight();
 
@@ -93,7 +90,6 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
-
     @Override
     public void run() {
 
@@ -110,7 +106,7 @@ public class GameView extends SurfaceView implements Runnable {
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
-                        platform_interval = (int)(540/speed);
+                        platform_interval = (int)(630/speed);
                         this.scoreIncrement();
                         this.onDraw(c);
                         this.isCollision();
@@ -187,7 +183,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void gameOver(){
-        MainActivity.getInstance().gameOver();
+        MainActivity.getInstance().gameOver(score);
         baloon.setGameOver(true);
         running = false;
     }

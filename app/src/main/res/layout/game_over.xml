@@ -28,10 +28,10 @@
             android:text="Restart" />
 
         <TextView
-            android:id="@+id/quit"
+            android:id="@+id/gameOverQuit"
             style="@style/MenuFont"
             android:layout_gravity="center"
-            android:text="Quit" />
+            android:text="Exit to menu" />
 
     </LinearLayout>
 

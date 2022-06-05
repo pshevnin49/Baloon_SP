@@ -61,15 +61,8 @@ public class Platform {
         return !(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth ))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight)));
     }
 
-//    public void speedIncrement(){
-//        speed += 0.01;
-//        System.out.println(speed + " speed");
-//    }
-
     public void setSpeed(double speed){
         this.speed = speed;
     }
-
-
 
 }
