@@ -3,6 +3,7 @@ package com.example.sp_2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class ScoreActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         display = getWindowManager().getDefaultDisplay();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.score);
         TextView scoreText = (TextView)findViewById(R.id.score);
 

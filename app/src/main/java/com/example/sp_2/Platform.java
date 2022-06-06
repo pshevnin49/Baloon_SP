@@ -57,7 +57,6 @@ public class Platform {
     }
 
     public boolean isCollision(int baloonX, int baloonY, int baloonWidth, int baloonHeight){
-        //System.out.println(!(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight))));
         return !(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth ))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight)));
     }
 

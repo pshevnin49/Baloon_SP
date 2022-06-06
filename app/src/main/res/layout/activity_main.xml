@@ -6,17 +6,10 @@
     android:layout_gravity="center"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/start"
-        style="@style/MenuFont"
-        android:layout_gravity="center"
-        android:text="1000" />
-
     <LinearLayout
         android:id="@+id/gameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="100"/>
+        android:orientation="vertical" />
 
 </RelativeLayout>

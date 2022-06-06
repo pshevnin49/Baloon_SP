@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
@@ -47,6 +48,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         setContentView(R.layout.activity_main);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         LinearLayout gameLayout = (LinearLayout) findViewById(R.id.gameLayout);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         gameView = new GameView(this);
         gameLayout.addView(gameView);
         gameView.setOnTouchListener(this);
