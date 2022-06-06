@@ -150,7 +150,6 @@ public class MenuView extends SurfaceView implements Runnable {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.parseColor("#9ba7cf"));
-
         for(Cloud cloud: clouds){
             cloud.onDraw(canvas);
         }

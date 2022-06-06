@@ -16,13 +16,14 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public static final String APP_PREFERENCES = "gameSettings";
     public static final String APP_PREFERENCES_SETTINGS = "settings";
     private SharedPreferences scorePreferences;
+    SharedPreferences.Editor editor = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         display = getWindowManager().getDefaultDisplay();
 
-        scorePreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        scorePreferences = getSharedPreferences(APP_PREFERENCES, 0);
 
         setContentView(R.layout.settings);
 
@@ -30,8 +31,6 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         boolean actuallPosition = scorePreferences.getBoolean(APP_PREFERENCES_SETTINGS, true);
 
         settingsView = (TextView)findViewById(R.id.settings);
-        settingsView.setOnClickListener(this);
-
         TextView settingsQuitView = (TextView)findViewById(R.id.settingsQuit);
         settingsQuitView.setOnClickListener(this);
 
@@ -40,6 +39,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         }else{
             settingsView.setText("Volume OFF");
         }
+        settingsView.setOnClickListener(this);
 
     }
 
@@ -47,17 +47,21 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.settings: {
-                SharedPreferences.Editor editor = scorePreferences.edit();
-                boolean settingsPosition = scorePreferences.getBoolean(APP_PREFERENCES_SETTINGS, true);
+
+                editor = scorePreferences.edit();
+                boolean settingsPosition = scorePreferences.getBoolean(APP_PREFERENCES_SETTINGS, false);
                 editor.putBoolean(APP_PREFERENCES_SETTINGS, !settingsPosition);
+                editor.apply();
+                settingsPosition = scorePreferences.getBoolean(APP_PREFERENCES_SETTINGS, false);
 
                 if(settingsPosition){
+                    System.out.println("ON");
                     settingsView.setText("Volume ON");
                 }else{
+                    System.out.println("OFF");
                     settingsView.setText("Volume OFF");
                 }
 
-                editor.apply();
             }break;
 
             case R.id.settingsQuit: {

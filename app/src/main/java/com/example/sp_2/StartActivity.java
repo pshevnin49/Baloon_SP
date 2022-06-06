@@ -16,7 +16,6 @@ public class StartActivity extends Activity implements OnClickListener {
     MenuView menuView = null;
 
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         createBackground();
     }

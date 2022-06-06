@@ -1,5 +1,6 @@
 package com.example.sp_2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameOverActivity extends AppCompatActivity implements OnClickListener {
+public class GameOverActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public class GameOverActivity extends AppCompatActivity implements OnClickListen
                 Intent intent = new Intent();
                 intent.setClass(this, MainActivity.class);
                 startActivity(intent);
-                System.out.println("gameover Finish");
                 finish();
             }break;
 

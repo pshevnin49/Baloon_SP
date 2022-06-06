@@ -14,10 +14,7 @@ import java.util.Queue;
 
 public class GameView extends SurfaceView implements Runnable {
 
-
-
     static final long FPS = 35;
-
     private double speed = 6;
     private int platform_interval = 90;
 
@@ -72,7 +69,7 @@ public class GameView extends SurfaceView implements Runnable {
             public void surfaceCreated(SurfaceHolder holder) {
                 baloon = new Baloon(getResources(), context, widthWindow, heightWindow);
                 setRunning(true);
-                //gameThread.start();
+
             }
 
             public void surfaceChanged(SurfaceHolder holder, int format,
@@ -156,7 +153,6 @@ public class GameView extends SurfaceView implements Runnable {
     public void scoreIncrement(){
         if(score_time >= SCORE_INTERVAL){
             score++;
-            System.out.println(score + " score");
             score_time = 0;
         }
         else{
