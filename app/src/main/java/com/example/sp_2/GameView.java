@@ -104,7 +104,7 @@ public class GameView extends SurfaceView implements Runnable {
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
-                        score_interval = (int) (240/speed);
+                        score_interval = (int) (480/speed);
                         platform_interval = (int)(630/speed);
                         this.scoreIncrement();
                         this.onDraw(c);
