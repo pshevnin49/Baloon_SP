@@ -67,7 +67,7 @@ public class Baloon {
     }
 
     public void speedIncrement(){
-        speed += 0.08;
+        speed += 0.09;
     }
 
     public void setGameOver(boolean gameOver){

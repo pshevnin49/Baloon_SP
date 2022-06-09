@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameOverActivity extends Activity implements OnClickListener {
+    public static int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,10 @@ public class GameOverActivity extends Activity implements OnClickListener {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.game_over);
         TextView restartView = (TextView)findViewById(R.id.restart);
+        restartView.setOnClickListener(this);
+
+        TextView gameOverScoreView = (TextView)findViewById(R.id.gameOverScore);
+        gameOverScoreView.setText("Score: " + score);
         restartView.setOnClickListener(this);
 
         TextView quitView = (TextView)findViewById(R.id.gameOverQuit);
@@ -34,14 +39,18 @@ public class GameOverActivity extends Activity implements OnClickListener {
                 intent.setClass(this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                score = 0;
             }break;
 
             case R.id.gameOverQuit: {
                 finish();
+                score = 0;
             }break;
 
             default:
                 break;
         }
     }
+
+
 }

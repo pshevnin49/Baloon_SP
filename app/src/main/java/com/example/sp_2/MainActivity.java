@@ -111,7 +111,6 @@ public class MainActivity extends Activity implements OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         int x = (int)event.getX();
-
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 if(x < display.getWidth()/2 && !rightPressed){
@@ -144,7 +143,6 @@ public class MainActivity extends Activity implements OnTouchListener {
 
         if(!gameOver){
             Intent intent = new Intent();
-
             int actuallScore = scorePreferences.getInt(APP_PREFERENCES_SCORE, 0);
 
             if(newScore > actuallScore){

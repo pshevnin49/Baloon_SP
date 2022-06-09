@@ -25,6 +25,7 @@ public class Platform {
     private Resources resources = null;
     private Bitmap bmp;
 
+
     public Platform (Resources resources, Context context, int windowWidth, int windowHeight){
 
         sizeW = 252;
@@ -57,7 +58,7 @@ public class Platform {
     }
 
     public boolean isCollision(int baloonX, int baloonY, int baloonWidth, int baloonHeight){
-        return !(((x+sizeW) < baloonX)||(x > (baloonX + baloonWidth ))||((y + sizeH) < baloonY)||(y > (baloonY + baloonHeight)));
+        return !(((x + 5 + sizeW - 5) < baloonX)||(x > (baloonX + baloonWidth))||((y + sizeH - 5) < baloonY)||(y > (baloonY + baloonHeight)));
     }
 
     public void setSpeed(double speed){

@@ -1,13 +1,11 @@
 package com.example.sp_2;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -18,7 +16,7 @@ public class GameView extends SurfaceView implements Runnable {
     private double speed = 6;
     private int platform_interval = 90;
 
-    private final int SCORE_INTERVAL = 20;
+    private int score_interval = 0;
     private final int SPEED_INTERVAL = 90;
 
     private boolean running = false;
@@ -106,6 +104,7 @@ public class GameView extends SurfaceView implements Runnable {
                 synchronized (this.getHolder()) {
                     // Pridana kontrola, aby nehazelo chybu pri tlacitku BACK
                     if (c != null) {
+                        score_interval = (int) (240/speed);
                         platform_interval = (int)(630/speed);
                         this.scoreIncrement();
                         this.onDraw(c);
@@ -151,7 +150,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     public void scoreIncrement(){
-        if(score_time >= SCORE_INTERVAL){
+        if(score_time >= score_interval){
             score++;
             score_time = 0;
         }
@@ -192,6 +191,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void gameOver(){
         MainActivity.getInstance().gameOver(score);
+        GameOverActivity.score = score;
         baloon.setGameOver(true);
         running = false;
     }
